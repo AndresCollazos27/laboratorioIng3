@@ -82,7 +82,10 @@ public class ProductRepository implements IProductRepository {
         String sql = "CREATE TABLE IF NOT EXISTS products (\n"
                 + "	productId integer PRIMARY KEY AUTOINCREMENT,\n"
                 + "	name text NOT NULL,\n"
-                + "	description text NULL\n"
+                + "	description text NULL"
+                //+ ",\n"
+                //+ "     categoryId INTEGER NOT NULL,\n"
+                //+ "     FOREIGN KEY (categoryId) references categories(categoryId)"
                 + ");";
 
         try {

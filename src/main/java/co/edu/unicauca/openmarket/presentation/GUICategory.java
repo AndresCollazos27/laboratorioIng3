@@ -1,21 +1,30 @@
-package co.edu.unicauca.openmarket.presentation;
-
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
+package co.edu.unicauca.openmarket.presentation;
+
+import co.edu.unicauca.openmarket.domain.Category;
+import co.edu.unicauca.openmarket.domain.service.ProductCategory;
+import co.edu.unicauca.openmarket.infra.Messages;
+import javax.swing.JOptionPane;
 
 /**
  *
- * @author usuario
+ * @author User
  */
-public class GUICategory extends javax.swing.JPanel {
-
+public class GUICategory extends javax.swing.JFrame {
+    private final ProductCategory productCategory;
+    private boolean addOption;
     /**
      * Creates new form GUICategory
+     * @param productCategory
      */
-    public GUICategory() {
+    public GUICategory(ProductCategory productCategory) {
         initComponents();
+        stateInitial();
+        this.productCategory = productCategory;
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -27,32 +36,236 @@ public class GUICategory extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        txtId = new javax.swing.JTextField();
+        txtNombre = new javax.swing.JTextField();
+        lblNombre = new javax.swing.JLabel();
+        lblId = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        btnNuevo = new javax.swing.JButton();
+        btnEditar = new javax.swing.JButton();
+        btnSave = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
+        btnCerrar = new javax.swing.JButton();
 
-        jLabel1.setText("Categoria");
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Categorias");
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
+        jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jLabel1.setText("CATEGORIAS");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 30, -1, -1));
+        jPanel1.add(txtId, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 120, 230, 60));
+        jPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 230, 230, 60));
+
+        lblNombre.setText("Nombre Categoria");
+        jPanel1.add(lblNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 210, -1, -1));
+
+        lblId.setText("ID Categoria");
+        jPanel1.add(lblId, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 90, -1, -1));
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        btnNuevo.setText("Nuevo");
+        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnNuevo);
+
+        btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnEditar);
+
+        btnSave.setText("Grabar");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnSave);
+
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnCancelar);
+
+        btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnEliminar);
+
+        btnCerrar.setText("Cerrar");
+        btnCerrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCerrarActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnCerrar);
+
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 380, 630, 40));
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(263, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        jLabel1.getAccessibleContext().setAccessibleDescription("");
+        pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
+        stateNew();
+        txtNombre.requestFocus();
+        addOption = true;
+    }//GEN-LAST:event_btnNuevoActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        addOption = false;
+        stateEdit();
+        txtId.requestFocus();
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        if (txtNombre.getText().trim().equals("")) {
+            Messages.showMessageDialog("Debe ingresar el nombre del producto", "Atención");
+            txtNombre.requestFocus();
+            return;
+        }
+        if (addOption) {
+            //Agregar
+            addCategory();
+
+        } else {
+            //Editar
+            editCategory();
+        }
+    }//GEN-LAST:event_btnSaveActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        stateInitial();
+        cleanControls();
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+         String id = txtId.getText().trim();
+        if (id.equals("")) {
+            Messages.showMessageDialog("Debe buscar el producto a eliminar", "Atención");
+            txtId.requestFocus();
+            return;
+        }
+        Long categoryId = Long.valueOf(id);
+        if (Messages.showConfirmDialog("Está seguro que desea eliminar este producto?", "Confirmación") == JOptionPane.YES_NO_OPTION) {
+            if (productCategory.deleteCategory(categoryId)) {
+                Messages.showMessageDialog("Producto eliminado con éxito", "Atención");
+                stateInitial();
+                cleanControls();
+            }
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnCerrarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnCerrar;
+    private javax.swing.JButton btnEditar;
+    private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnNuevo;
+    private javax.swing.JButton btnSave;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel lblId;
+    private javax.swing.JLabel lblNombre;
+    private javax.swing.JTextField txtId;
+    private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
+
+    private void stateEdit() {
+        btnNuevo.setVisible(false);
+        btnEditar.setVisible(false);
+        btnEliminar.setVisible(true);
+        btnCancelar.setVisible(true);
+        btnCerrar.setVisible(false);
+        btnSave.setVisible(true);
+        txtId.setEnabled(true);
+        txtNombre.setEnabled(true);
+    }
+
+    private void stateInitial() {
+        btnNuevo.setVisible(true);
+        btnEditar.setVisible(true);
+        btnEliminar.setVisible(false);
+        btnCancelar.setVisible(false);
+        btnCerrar.setVisible(true);
+        btnSave.setVisible(false);
+        txtId.setEnabled(false);
+        txtNombre.setEnabled(false);
+    }
+    private void stateNew() {
+        btnNuevo.setVisible(false);
+        btnEditar.setVisible(false);
+        btnEliminar.setVisible(false);
+        btnCancelar.setVisible(true);
+        btnCerrar.setVisible(false);
+        btnSave.setVisible(true);
+        txtId.setEnabled(false);
+        txtNombre.setEnabled(true);
+    }
+    private void cleanControls() {
+        txtId.setText("");
+        txtNombre.setText("");
+    }
+    private void addCategory() {
+        String name = txtNombre.getText().trim();
+        if (productCategory.saveCategory(name)) {
+            Messages.showMessageDialog("Se grabó con éxito", "Atención");
+            cleanControls();
+            stateInitial();
+        } else {
+            Messages.showMessageDialog("Error al grabar, lo siento mucho", "Atención");
+        }
+    }
+    private void editCategory() {
+        String id = txtId.getText().trim();
+        if (id.equals("")) {
+            Messages.showMessageDialog("Debe buscar el producto a editar", "Atención");
+            txtId.requestFocus();
+            return;
+        }
+        Long catergoryId = Long.valueOf(id);
+
+        if (productCategory.editCategory(catergoryId, new Category(catergoryId,txtNombre.getText().trim()))) {
+            Messages.showMessageDialog("Se editó con éxito", "Atención");
+            cleanControls();
+            stateInitial();
+        } else {
+            Messages.showMessageDialog("Error al editar, lo siento mucho", "Atención");
+        }
+    }
 }
+

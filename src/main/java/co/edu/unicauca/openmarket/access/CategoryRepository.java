@@ -151,8 +151,8 @@ public class CategoryRepository implements ICategoryRepository {
     private void initDatabase() {
         // Código para crear la tabla de categorías, similar al de productos
         String createTableSQL = "CREATE TABLE IF NOT EXISTS categories ("
-                + "categoryId INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + "name TEXT NOT NULL)";
+                + "categoryId INTEGER PRIMARY KEY AUTOINCREMENT,\n "
+                + "name TEXT NOT NULL);";
         
         try {
             // Crear la tabla de categorías si no existe

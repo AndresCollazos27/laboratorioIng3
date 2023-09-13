@@ -27,7 +27,14 @@ public class Product {
         this.description = description;
         this.price = price;
     }
-
+    public Product(Long productId, String name, String description, double price,Category category) {
+        this.productId = productId;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.category = category;
+    }
+   
     public Product() {
     }
 

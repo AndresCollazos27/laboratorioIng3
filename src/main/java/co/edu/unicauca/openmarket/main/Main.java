@@ -22,15 +22,16 @@ public class Main {
     public static void main(String[] args) {
 
         // Obtener los repositorios tanto para productos como para categorías
-        IProductRepository productRepository = Factory.getInstance().getRepository("default");
         ICategoryRepository categoryRepository = Factory.getInstance().getCategoryRepository("default");
+        IProductRepository productRepository = Factory.getInstance().getRepository("default");
+        
 
         // Crear una instancia de ProductService que incluye ambos repositorios
         ProductService productService = new ProductService(productRepository);
         ProductCategory productCategory = new ProductCategory(categoryRepository);
         
         // Crear la interfaz gráfica de usuario (GUI) para productos
-        GUIProducts instance = new GUIProducts(productService);
+        GUIProducts instance = new GUIProducts(productService,productCategory);
         instance.setVisible(true);
     }
 

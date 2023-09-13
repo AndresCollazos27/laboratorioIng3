@@ -1,6 +1,7 @@
 package co.edu.unicauca.openmarket.presentation;
 
 import co.edu.unicauca.openmarket.domain.Product;
+import co.edu.unicauca.openmarket.domain.service.ProductCategory;
 import co.edu.unicauca.openmarket.domain.service.ProductService;
 import co.edu.unicauca.openmarket.infra.Messages;
 import javax.swing.JOptionPane;
@@ -12,15 +13,18 @@ import javax.swing.JOptionPane;
 public class GUIProducts extends javax.swing.JFrame {
 
     private final ProductService productService;
+    private final ProductCategory productCategory;
     private boolean addOption;
 
     /**
      * Creates new form GUIProducts
      * @param productService
+     * @param productCategory
      */
-    public GUIProducts(ProductService productService) {
+    public GUIProducts(ProductService productService,ProductCategory productCategory) {
         initComponents();
         this.productService = productService;
+        this.productCategory = productCategory;
         stateInitial();
 
     }
@@ -42,6 +46,7 @@ public class GUIProducts extends javax.swing.JFrame {
         btnEliminar = new javax.swing.JButton();
         btnFind = new javax.swing.JButton();
         btnCerrar = new javax.swing.JButton();
+        btnCategorias = new javax.swing.JButton();
         pnlCenter = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txtId = new javax.swing.JTextField();
@@ -111,6 +116,19 @@ public class GUIProducts extends javax.swing.JFrame {
             }
         });
         pnlSouth.add(btnCerrar);
+
+        btnCategorias.setText("Categorias");
+        btnCategorias.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCategoriasMouseClicked(evt);
+            }
+        });
+        btnCategorias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCategoriasActionPerformed(evt);
+            }
+        });
+        pnlSouth.add(btnCategorias);
 
         getContentPane().add(pnlSouth, java.awt.BorderLayout.SOUTH);
 
@@ -232,6 +250,15 @@ public class GUIProducts extends javax.swing.JFrame {
     private void txtIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtIdActionPerformed
+
+    private void btnCategoriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCategoriasActionPerformed
+        
+    }//GEN-LAST:event_btnCategoriasActionPerformed
+
+    private void btnCategoriasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCategoriasMouseClicked
+        GUICategory instance = new GUICategory(productCategory);
+        instance.setVisible(true);
+    }//GEN-LAST:event_btnCategoriasMouseClicked
     private void stateEdit() {
         btnNuevo.setVisible(false);
         btnEditar.setVisible(false);
@@ -243,6 +270,7 @@ public class GUIProducts extends javax.swing.JFrame {
         txtId.setEnabled(true);
         txtName.setEnabled(true);
         txtDescription.setEnabled(true);
+        btnCategorias.setVisible(false);
     }
 
     private void stateInitial() {
@@ -256,11 +284,13 @@ public class GUIProducts extends javax.swing.JFrame {
         txtId.setEnabled(false);
         txtName.setEnabled(false);
         txtDescription.setEnabled(false);
+        btnCategorias.setVisible(true);
 
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnCategorias;
     private javax.swing.JButton btnCerrar;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
@@ -289,7 +319,7 @@ public class GUIProducts extends javax.swing.JFrame {
         txtId.setEnabled(false);
         txtName.setEnabled(true);
         txtDescription.setEnabled(true);
-
+        btnCategorias.setVisible(false);
     }
 
     private void cleanControls() {
