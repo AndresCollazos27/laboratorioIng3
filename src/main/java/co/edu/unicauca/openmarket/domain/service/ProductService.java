@@ -1,6 +1,8 @@
 package co.edu.unicauca.openmarket.domain.service;
 
+import co.edu.unicauca.openmarket.access.ICategoryRepository;
 import co.edu.unicauca.openmarket.access.IProductRepository;
+import co.edu.unicauca.openmarket.domain.Category;
 import co.edu.unicauca.openmarket.domain.Product;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +16,7 @@ public class ProductService {
     // Ahora hay una dependencia de una abstracción, no es algo concreto,
     // no sabe cómo está implementado.
     private final IProductRepository productRepository;
+    private ICategoryRepository categoryRepository;
 
     /**
      * Inyección de dependencias en el constructor.Ya no conviene que el mismo
@@ -25,12 +28,12 @@ public class ProductService {
         this.productRepository = productRepository;
     }
 
-    public boolean saveProduct(String name, String description) {
+    public boolean saveProduct(String name, String description, long idCategoria) {
 
         Product newProduct = new Product();
         newProduct.setName(name);
         newProduct.setDescription(description);
-
+        newProduct.setIdCategoria(idCategoria);
         //Validate product
         if (newProduct.getName().isEmpty()) {
             return false;

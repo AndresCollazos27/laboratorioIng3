@@ -55,6 +55,9 @@ public class GUIProducts extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtDescription = new javax.swing.JTextArea();
+        jLabel4 = new javax.swing.JLabel();
+        txtIdCateogoria = new javax.swing.JTextField();
+        jPanel1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Productos");
@@ -133,11 +136,11 @@ public class GUIProducts extends javax.swing.JFrame {
         getContentPane().add(pnlSouth, java.awt.BorderLayout.SOUTH);
 
         pnlCenter.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        pnlCenter.setLayout(new java.awt.GridLayout(3, 2));
+        pnlCenter.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel1.setText("*Id:");
-        pnlCenter.add(jLabel1);
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("ID Producto");
+        pnlCenter.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 40, 160, 50));
 
         txtId.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -149,22 +152,36 @@ public class GUIProducts extends javax.swing.JFrame {
                 txtIdActionPerformed(evt);
             }
         });
-        pnlCenter.add(txtId);
+        pnlCenter.add(txtId, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 90, 150, 40));
 
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel2.setText("*Nombre:");
-        pnlCenter.add(jLabel2);
-        pnlCenter.add(txtName);
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Nombre del Producto");
+        pnlCenter.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 130, 160, 40));
 
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel3.setText("Descripción:");
-        pnlCenter.add(jLabel3);
+        txtName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNameActionPerformed(evt);
+            }
+        });
+        pnlCenter.add(txtName, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 180, 150, 40));
+
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("ID Categoria");
+        pnlCenter.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 240, 130, 30));
 
         txtDescription.setColumns(20);
         txtDescription.setRows(5);
         jScrollPane1.setViewportView(txtDescription);
 
-        pnlCenter.add(jScrollPane1);
+        pnlCenter.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, 230, 70));
+
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("Descripción:");
+        pnlCenter.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 230, 130, 30));
+        pnlCenter.add(txtIdCateogoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 280, 150, 40));
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        pnlCenter.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 690, 370));
 
         getContentPane().add(pnlCenter, java.awt.BorderLayout.CENTER);
 
@@ -259,6 +276,10 @@ public class GUIProducts extends javax.swing.JFrame {
         GUICategory instance = new GUICategory(productCategory);
         instance.setVisible(true);
     }//GEN-LAST:event_btnCategoriasMouseClicked
+
+    private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNameActionPerformed
     private void stateEdit() {
         btnNuevo.setVisible(false);
         btnEditar.setVisible(false);
@@ -284,6 +305,7 @@ public class GUIProducts extends javax.swing.JFrame {
         txtId.setEnabled(false);
         txtName.setEnabled(false);
         txtDescription.setEnabled(false);
+        txtIdCateogoria.setEnabled(false);
         btnCategorias.setVisible(true);
 
     }
@@ -300,11 +322,14 @@ public class GUIProducts extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel pnlCenter;
     private javax.swing.JPanel pnlSouth;
     private javax.swing.JTextArea txtDescription;
     private javax.swing.JTextField txtId;
+    private javax.swing.JTextField txtIdCateogoria;
     private javax.swing.JTextField txtName;
     // End of variables declaration//GEN-END:variables
 
@@ -317,9 +342,11 @@ public class GUIProducts extends javax.swing.JFrame {
         btnSave.setVisible(true);
         btnFind.setVisible(false);
         txtId.setEnabled(false);
+        txtIdCateogoria.setEnabled(true);
         txtName.setEnabled(true);
         txtDescription.setEnabled(true);
         btnCategorias.setVisible(false);
+        
     }
 
     private void cleanControls() {
@@ -331,8 +358,8 @@ public class GUIProducts extends javax.swing.JFrame {
     private void addProduct() {
         String name = txtName.getText().trim();
         String description = txtDescription.getText().trim();
-
-        if (productService.saveProduct(name, description)) {
+        long idCategoria = Long.valueOf(txtIdCateogoria.getText());
+        if (productService.saveProduct(name, description,idCategoria)) {
             Messages.showMessageDialog("Se grabó con éxito", "Atención");
             cleanControls();
             stateInitial();

@@ -36,12 +36,13 @@ public class ProductRepository implements IProductRepository {
             }
             //this.connect();
 
-            String sql = "INSERT INTO products ( name, description ) "
-                    + "VALUES ( ?, ? )";
+            String sql = "INSERT INTO products ( name, description,categoryId ) "
+                    + "VALUES ( ?, ?, ? )";
 
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, newProduct.getName());
             pstmt.setString(2, newProduct.getDescription());
+            pstmt.setLong(3, newProduct.getIdCategoria());
             pstmt.executeUpdate();
             //this.disconnect();
             return true;
@@ -55,7 +56,7 @@ public class ProductRepository implements IProductRepository {
     public List<Product> findAll() {
         List<Product> products = new ArrayList<>();
         try {
-
+            //TODO InnerJoin
             String sql = "SELECT * FROM products";
             //this.connect();
 
@@ -66,7 +67,7 @@ public class ProductRepository implements IProductRepository {
                 newProduct.setProductId(rs.getLong("productId"));
                 newProduct.setName(rs.getString("name"));
                 newProduct.setDescription(rs.getString("description"));
-
+                //newProduct.
                 products.add(newProduct);
             }
             //this.disconnect();
@@ -83,9 +84,9 @@ public class ProductRepository implements IProductRepository {
                 + "	productId integer PRIMARY KEY AUTOINCREMENT,\n"
                 + "	name text NOT NULL,\n"
                 + "	description text NULL"
-                //+ ",\n"
-                //+ "     categoryId INTEGER NOT NULL,\n"
-                //+ "     FOREIGN KEY (categoryId) references categories(categoryId)"
+                + ",\n"
+                + "     categoryId INTEGER NOT NULL,\n"
+                + "     FOREIGN KEY (categoryId) references categories(categoryId)"
                 + ");";
 
         try {

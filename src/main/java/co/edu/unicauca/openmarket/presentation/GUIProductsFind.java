@@ -50,6 +50,9 @@ public class GUIProductsFind extends javax.swing.JDialog {
             rowData[0] = listProducts.get(i).getProductId();
             rowData[1] = listProducts.get(i).getName();
             rowData[2] = listProducts.get(i).getDescription();
+            //TODO Imprimir Por pantalla id categoria
+            System.out.println(listProducts.get(i).getCategory().getName());
+            //rowData[3] = listProducts.get(i).getCategory().getName();
 
             model.addRow(rowData);
         }

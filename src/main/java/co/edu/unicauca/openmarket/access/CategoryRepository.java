@@ -31,7 +31,6 @@ public class CategoryRepository implements ICategoryRepository {
             if (newCategory == null || newCategory.getName().isEmpty()) {
                 return false;
             }
-
             String sql = "INSERT INTO categories (name) VALUES (?)";
 
             PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -161,9 +160,7 @@ public class CategoryRepository implements ICategoryRepository {
             stmt.execute(createTableSQL);
         } catch (SQLException ex) {
             Logger.getLogger(CategoryRepository.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            this.disconnect();
-        }
+        } 
     }
 
     public void connect() {
