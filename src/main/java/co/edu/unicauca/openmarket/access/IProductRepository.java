@@ -15,9 +15,11 @@ public interface IProductRepository {
     
     boolean delete(Long id);
 
-    Product findById(Long id);
+    List<Product> findById(Long id);
     
     List<Product> findAll();
     
-    public Product findByName(String name);
+    List<Product> findByName(String name);
+    
+    List<Product> findByCategoryId(Long categoryId);
 }

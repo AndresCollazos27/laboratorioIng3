@@ -16,8 +16,6 @@ public class ProductService {
     // Ahora hay una dependencia de una abstracción, no es algo concreto,
     // no sabe cómo está implementado.
     private final IProductRepository productRepository;
-    private ICategoryRepository categoryRepository;
-
     /**
      * Inyección de dependencias en el constructor.Ya no conviene que el mismo
      * servicio cree un repositorio concreto
@@ -28,12 +26,12 @@ public class ProductService {
         this.productRepository = productRepository;
     }
 
-    public boolean saveProduct(String name, String description, long idCategoria) {
+    public boolean saveProduct(String name, String description, Category categoria) {
 
         Product newProduct = new Product();
         newProduct.setName(name);
         newProduct.setDescription(description);
-        newProduct.setIdCategoria(idCategoria);
+        newProduct.setCategory(categoria);
         //Validate product
         if (newProduct.getName().isEmpty()) {
             return false;
@@ -50,7 +48,7 @@ public class ProductService {
         return products;
     }
 
-    public Product findProductById(Long id) {
+    public List<Product> findProductById(Long id) {
 
         return productRepository.findById(id);
     }
@@ -68,14 +66,20 @@ public class ProductService {
         return productRepository.edit(productId, prod);
     }
 
-    public Product findProductByName(String name) {
+    public List<Product> findProductByName(String name) {
         // Validar el nombre del producto
         if (name == null || name.isEmpty()) {
             return null;
         }
-
         // Llamar al método en el repositorio que realiza la búsqueda por nombre
         return productRepository.findByName(name);
     }
-
+    public List<Product> findProductByCategoryId(Long categoryId) {
+        // Validar el nombre del producto
+        if (categoryId == null) {
+            return null;
+        }
+        // Llamar al método en el repositorio que realiza la búsqueda por nombre
+        return productRepository.findByCategoryId(categoryId);
+    }
 }

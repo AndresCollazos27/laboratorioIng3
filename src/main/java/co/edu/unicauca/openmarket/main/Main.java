@@ -25,7 +25,7 @@ public class Main {
         ICategoryRepository categoryRepository = Factory.getInstance().getCategoryRepository("default");
         IProductRepository productRepository = Factory.getInstance().getRepository("default");
         
-
+        
         // Crear una instancia de ProductService que incluye ambos repositorios
         ProductService productService = new ProductService(productRepository);
         ProductCategory productCategory = new ProductCategory(categoryRepository);

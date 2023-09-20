@@ -9,7 +9,7 @@ import co.edu.unicauca.openmarket.domain.Product;
 import co.edu.unicauca.openmarket.domain.service.ProductService;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
-
+import co.edu.unicauca.openmarket.infra.Messages;
 /**
  *
  * @author Libardo Pantoja
@@ -36,7 +36,7 @@ public class GUIProductsFind extends javax.swing.JDialog {
         tblProducts.setModel(new javax.swing.table.DefaultTableModel(
                 new Object[][]{},
                 new String[]{
-                    "Id", "Name", "Description"
+                    "Id", "Name", "Description","Categoria"
                 }
         ));
     }
@@ -45,14 +45,12 @@ public class GUIProductsFind extends javax.swing.JDialog {
         initializeTable();
         DefaultTableModel model = (DefaultTableModel) tblProducts.getModel();
 
-        Object rowData[] = new Object[3];//No columnas
+        Object rowData[] = new Object[4];//No columnas
         for (int i = 0; i < listProducts.size(); i++) {
             rowData[0] = listProducts.get(i).getProductId();
             rowData[1] = listProducts.get(i).getName();
             rowData[2] = listProducts.get(i).getDescription();
-            //TODO Imprimir Por pantalla id categoria
-            System.out.println(listProducts.get(i).getCategory().getName());
-            //rowData[3] = listProducts.get(i).getCategory().getName();
+            rowData[3] = listProducts.get(i).getCategory().getName();
 
             model.addRow(rowData);
         }
@@ -72,6 +70,7 @@ public class GUIProductsFind extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblProducts = new javax.swing.JTable();
         pnlNorth = new javax.swing.JPanel();
+        rdoCategoriaId = new javax.swing.JRadioButton();
         jLabel1 = new javax.swing.JLabel();
         rdoId = new javax.swing.JRadioButton();
         rdoName = new javax.swing.JRadioButton();
@@ -79,7 +78,7 @@ public class GUIProductsFind extends javax.swing.JDialog {
         btnSearch = new javax.swing.JButton();
         btnSearchAll = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
-        btnClose = new javax.swing.JButton();
+        btnCloser = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Búsqueda de productos");
@@ -102,6 +101,10 @@ public class GUIProductsFind extends javax.swing.JDialog {
         pnlCenter.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(pnlCenter, java.awt.BorderLayout.CENTER);
+
+        buttonGroup1.add(rdoCategoriaId);
+        rdoCategoriaId.setText("ID Categoria");
+        pnlNorth.add(rdoCategoriaId);
 
         jLabel1.setText("Buscar por:");
         pnlNorth.add(jLabel1);
@@ -151,22 +154,18 @@ public class GUIProductsFind extends javax.swing.JDialog {
 
         getContentPane().add(pnlNorth, java.awt.BorderLayout.PAGE_START);
 
-        btnClose.setText("Cerrar");
-        btnClose.addActionListener(new java.awt.event.ActionListener() {
+        btnCloser.setText("Cerrar");
+        btnCloser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCloseActionPerformed(evt);
+                btnCloserActionPerformed(evt);
             }
         });
-        jPanel1.add(btnClose);
+        jPanel1.add(btnCloser);
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_END);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
-        this.dispose();
-    }//GEN-LAST:event_btnCloseActionPerformed
 
     private void btnSearchAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchAllActionPerformed
         fillTable(productService.findAllProducts());
@@ -191,50 +190,75 @@ public class GUIProductsFind extends javax.swing.JDialog {
             if (!idText.isEmpty()) {
                 try {
                     Long id = Long.valueOf(idText);
-                    Product product = productService.findProductById(id);
+                    List<Product> prods = productService.findProductById(id);
+                    Product product = prods.get(0);
                     if (product != null) {
                         // Rellenar la tabla o mostrar el resultado de la búsqueda
                         DefaultTableModel model = (DefaultTableModel) tblProducts.getModel();
                         model.setRowCount(0); // Limpiar la tabla
-                        Object[] rowData = {product.getProductId(), product.getName(), product.getDescription()};
+                        Object[] rowData = {product.getProductId(), product.getName(), product.getDescription(),product.getCategory().getName()};
                         model.addRow(rowData);
                     } else {
-                        // Mostrar un mensaje de producto no encontrado
-                        // ...
+                        Messages.showMessageDialog("Producto no encontrado", "ERROR");
                     }
                 } catch (NumberFormatException e) {
-                    // Manejar el error de formato de ID inválido
-                    // ...
+                    Messages.showMessageDialog("FORMATO NO VALIDO", "ERROR DE FORMATO");
                 }
             } else {
-                // Mostrar un mensaje de entrada de búsqueda vacía
-                // ...
+                Messages.showMessageDialog("No ingreso nada", "ERROR");
             }
         } else if (rdoName.isSelected()) {
             // Realizar búsqueda por nombre
             String name = txtSearch.getText().trim();
             if (!name.isEmpty()) {
-                Product product = productService.findProductByName(name);
+                List<Product> prods = productService.findProductByName(name);
+                    Product product = prods.get(0);
                 if (product != null) {
                     // Rellenar la tabla o mostrar el resultado de la búsqueda
                     DefaultTableModel model = (DefaultTableModel) tblProducts.getModel();
                     model.setRowCount(0); // Limpiar la tabla
-                    Object[] rowData = {product.getProductId(), product.getName(), product.getDescription()};
+                    Object[] rowData = {product.getProductId(), product.getName(), product.getDescription(),product.getCategory().getName()};
                     model.addRow(rowData);
                 } else {
-                    // Mostrar un mensaje de producto no encontrado
-                    // ...
+                     Messages.showMessageDialog("Producto no encontrado", "ERROR");
                 }
             } else {
-                // Mostrar un mensaje de entrada de búsqueda vacía
-                // ...
+                 Messages.showMessageDialog("No ingreso nada", "ERROR");
+            }
+        }else if (rdoCategoriaId.isSelected()) {
+            // Realizar búsqueda por nombre
+            String text = txtSearch.getText();
+            if (!text.isEmpty()) {
+                Long categoryId = Long.valueOf(text);
+                List<Product> prods = productService.findProductByCategoryId(categoryId);
+                if (prods != null) {
+                    // Rellenar la tabla o mostrar el resultado de la búsqueda
+                    DefaultTableModel model = (DefaultTableModel) tblProducts.getModel();
+                    model.setRowCount(0); // Limpiar la tabla
+                    Object rowData[] = new Object[4];//No columnas
+                    for (int i = 0; i < prods.size(); i++) {
+                            rowData[0] = prods.get(i).getProductId();
+                            rowData[1] = prods.get(i).getName();
+                            rowData[2] = prods.get(i).getDescription();
+                            rowData[3] = prods.get(i).getCategory().getName();
+                            model.addRow(rowData);
+                    }
+                } else {
+                     Messages.showMessageDialog("Producto no encontrado", "ERROR");
+                }
+            } else {
+                 Messages.showMessageDialog("No ingreso nada", "ERROR");
             }
         }
     }//GEN-LAST:event_btnSearchActionPerformed
 
+    private void btnCloserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloserActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnCloserActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnClose;
+    private javax.swing.JButton btnCloser;
     private javax.swing.JButton btnSearch;
     private javax.swing.JButton btnSearchAll;
     private javax.swing.ButtonGroup buttonGroup1;
@@ -243,6 +267,7 @@ public class GUIProductsFind extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel pnlCenter;
     private javax.swing.JPanel pnlNorth;
+    private javax.swing.JRadioButton rdoCategoriaId;
     private javax.swing.JRadioButton rdoId;
     private javax.swing.JRadioButton rdoName;
     private javax.swing.JTable tblProducts;

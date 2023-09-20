@@ -20,10 +20,7 @@ public class Product {
     private Location location;
     
     private User user;
-    
-    private long idCategoria;
-    
-
+   
     public Product(Long productId, String name, String description, double price) {
         this.productId = productId;
         this.name = name;
@@ -36,14 +33,6 @@ public class Product {
         this.description = description;
         this.price = price;
         this.category = category;
-    }
-    public Product(Long productId, String name, String description, double price,long IdCategoria) {
-        this.productId = productId;
-        this.name = name;
-        this.description = description;
-        this.price = price;
-        this.category = category;
-        this.idCategoria = IdCategoria;
     }
    
     public Product() {
@@ -104,15 +93,4 @@ public class Product {
     public void setUser(User user) {
         this.user = user;
     }
-
-    public long getIdCategoria() {
-        return idCategoria;
-    }
-
-    public void setIdCategoria(long idCategoria) {
-        this.idCategoria = idCategoria;
-    }
-    
-
-
 }

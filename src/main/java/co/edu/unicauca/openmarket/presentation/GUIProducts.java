@@ -1,9 +1,11 @@
 package co.edu.unicauca.openmarket.presentation;
 
+import co.edu.unicauca.openmarket.domain.Category;
 import co.edu.unicauca.openmarket.domain.Product;
 import co.edu.unicauca.openmarket.domain.service.ProductCategory;
 import co.edu.unicauca.openmarket.domain.service.ProductService;
 import co.edu.unicauca.openmarket.infra.Messages;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -231,7 +233,8 @@ public class GUIProducts extends javax.swing.JFrame {
             return;
         }
         Long productId = Long.valueOf(txtId.getText());
-        Product prod = productService.findProductById(productId);
+        List<Product> prods = productService.findProductById(productId);
+        Product prod = prods.get(0);
         if (prod == null) {
             Messages.showMessageDialog("El identificador del producto no existe", "Error");
             txtId.setText("");
@@ -358,8 +361,8 @@ public class GUIProducts extends javax.swing.JFrame {
     private void addProduct() {
         String name = txtName.getText().trim();
         String description = txtDescription.getText().trim();
-        long idCategoria = Long.valueOf(txtIdCateogoria.getText());
-        if (productService.saveProduct(name, description,idCategoria)) {
+        Category categoria = productCategory.findCategoryById(Long.valueOf(txtIdCateogoria.getText()));
+        if (productService.saveProduct(name, description,categoria)) {
             Messages.showMessageDialog("Se grabó con éxito", "Atención");
             cleanControls();
             stateInitial();
